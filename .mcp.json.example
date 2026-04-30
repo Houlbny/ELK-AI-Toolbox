@@ -1,0 +1,33 @@
+{
+  "mcpServers": {
+    "elk-stdio": {
+      "_comment": "本地 stdio 模式：客户端直接拉起 MCP 进程，适合单人本地使用",
+      "command": "uvx",
+      "args": [
+        "--from",
+        "/path/to/TTFund-ELK-Skill/mcp-server",
+        "mcp-server-elk",
+        "--mode",
+        "kibana",
+        "--timeout",
+        "30s",
+        "--max-results",
+        "50",
+        "--max-time-range",
+        "7d",
+        "--verify-certs",
+        "true"
+      ],
+      "env": {
+        "ELK_HOST": "",
+        "ELK_USERNAME": "",
+        "ELK_PASSWORD": ""
+      }
+    },
+    "elk-sse": {
+      "_comment": "远程 SSE 模式：MCP 服务部署在服务端，客户端通过 URL 连接",
+      "type": "sse",
+      "url": "http://your-server-ip:8000/sse"
+    }
+  }
+}

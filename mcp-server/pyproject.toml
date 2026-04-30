@@ -1,0 +1,21 @@
+[build-system]
+requires = ["hatchling>=1.25.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-server-elk"
+version = "0.1.0"
+description = "ELK MCP server"
+requires-python = ">=3.10"
+dependencies = [
+  "mcp>=1.0.0",
+  "elasticsearch>=8.0.0,<9.0.0",
+  "httpx>=0.25.0",
+  "uvicorn>=0.24.0",
+]
+
+[project.scripts]
+mcp-server-elk = "mcp_server.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mcp_server"]
