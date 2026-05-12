@@ -1,4 +1,4 @@
-from mcp_server.server import build_overrides, parse_args
+from mcp_server.server import build_overrides, create_mcp, parse_args
 
 
 def test_parse_args_defaults():
@@ -55,3 +55,10 @@ def test_build_overrides_includes_max_buckets():
     overrides = build_overrides(args)
 
     assert overrides == {"max_buckets": 40}
+
+
+def test_create_mcp_configures_sse_host_and_port():
+    mcp = create_mcp(client=object(), config=object(), host="0.0.0.0", port=9000)
+
+    assert mcp.settings.host == "0.0.0.0"
+    assert mcp.settings.port == 9000

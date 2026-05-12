@@ -1,0 +1,12 @@
+.git/
+.worktrees/
+.claude/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+dist/
+build/
+.env
+.mcp.json
+docs/superpowers/

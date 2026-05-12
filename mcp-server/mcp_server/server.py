@@ -81,9 +81,9 @@ def build_overrides(args: argparse.Namespace) -> dict:
     return overrides
 
 
-def create_mcp(client: ElkClient, config) -> FastMCP:
+def create_mcp(client: ElkClient, config, *, host: str = "127.0.0.1", port: int = 8000) -> FastMCP:
     """创建 MCP 实例并注册所有工具（索引、映射、计数、搜索、聚合、字段值）。"""
-    mcp = FastMCP("elk", instructions=MCP_INSTRUCTIONS)
+    mcp = FastMCP("elk", instructions=MCP_INSTRUCTIONS, host=host, port=port)
     indices.register(mcp, client, config)
     mapping.register(mcp, client)
     count.register(mcp, client, config)
@@ -99,9 +99,9 @@ def main(argv: list[str] | None = None) -> None:
     config = load_config(overrides=build_overrides(args))
     client = ElkClient(config)
     atexit.register(client.close)
-    mcp = create_mcp(client, config)
+    mcp = create_mcp(client, config, host=args.host, port=args.port)
     if args.transport == "sse":
-        mcp.run(transport="sse", host=args.host, port=args.port)
+        mcp.run(transport="sse")
     else:
         mcp.run(transport="stdio")
 
